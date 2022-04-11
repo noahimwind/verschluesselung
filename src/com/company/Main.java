@@ -8,7 +8,7 @@ public class Main {
         x.entschluesseln();*/
 
         Caesar x = new Caesar();
-        System.out.println(x.verschluesseln("abc", 2));
-        System.out.println(x.entschluesseln("cde", 2));
+        x.verschluesseln(2);
+        //x.entschluesseln(2);
     }
 }
