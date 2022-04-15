@@ -2,54 +2,46 @@ package com.company;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.security.Key;
 
 public class Rijndael {
     private static final String algorithmus = "AES";
     private static byte[] schluesselWert;
-    RandomAccessFile raf = null;
+    BufferedReader br = null;
+    BufferedWriter bw = null;
     File file = new File("C:\\Users\\noahd\\Documents\\SWD\\rijndael.txt");
 
     public Rijndael(String schluessel) {
         schluesselWert = schluessel.getBytes();
     }
 
-    public String auslesen() throws IOException {
-        raf = new RandomAccessFile(file, "r");
+    public String ausDateiLesen() throws IOException {
+        br = new BufferedReader(new FileReader(file));
         String read = "";
-        for (int i = 0; i < file.length(); i++){
-            read += (char)raf.readByte();
-        }
-        raf.close();
+        read = br.readLine();
+        br.close();
         return read;
     }
 
-    /*public void schreiben(String choice) throws Exception {
-        raf = new RandomAccessFile(file, "rw");
-        if (choice == "v"){
-            raf.write(this.verschluesseln());
-        }
-        else if (choice == "e"){
-            raf.write(this.entschluesseln());
-        }
-    }*/
+    public void inDateiSchreiben(String text) throws IOException {
+        bw = new BufferedWriter(new FileWriter(file));
+        bw.write(text);
+        bw.close();
+    }
 
-    public String verschluesseln() throws Exception{
-        String daten = this.auslesen();
+    public void verschluesseln() throws Exception{
+        String daten = this.ausDateiLesen();
         Key schluessel = schluesselGenerieren();
         Cipher cipher = Cipher.getInstance(algorithmus);
         cipher.init(Cipher.ENCRYPT_MODE, schluessel);
         byte[] encVal = cipher.doFinal(daten.getBytes());
         String encryptedValue = java.util.Base64.getEncoder().encodeToString(encVal);
-        return encryptedValue;
+        this.inDateiSchreiben(encryptedValue);
     }
 
-    public String entschluesseln() throws Exception{
-        String verschlüsselteDaten = this.auslesen();
+    public void entschluesseln() throws Exception{
+        String verschlüsselteDaten = this.ausDateiLesen();
         System.out.println(verschlüsselteDaten);
         Key schluessel = schluesselGenerieren();
         Cipher cipher = Cipher.getInstance(algorithmus);
@@ -57,7 +49,7 @@ public class Rijndael {
         byte[] decodedValue = java.util.Base64.getDecoder().decode(verschlüsselteDaten);
         byte[] decValue = cipher.doFinal(decodedValue);
         String decryptedValue = new String(decValue);
-        return decryptedValue;
+        this.inDateiSchreiben(decryptedValue);
     }
 
     private static Key schluesselGenerieren() throws Exception{

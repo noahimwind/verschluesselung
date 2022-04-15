@@ -1,12 +1,6 @@
 package com.company;
-// TODO: Leerzeichen und Sonderzeichen fixen
-// TODO: Groß und Kleinschreibung fixen
-// TODO: Dateiein- und ausgabe
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public class Caesar {
 
@@ -14,26 +8,23 @@ public class Caesar {
 
     private int verschiebung;
 
-    RandomAccessFile raf = null;
+    BufferedReader br = null;
+    BufferedWriter bw = null;
 
     File file = new File("C:\\Users\\noahd\\Documents\\SWD\\caesarklartext.txt");  //caesarklartext.txt
 
     public String ausDateiLesen() throws IOException {
-        raf = new RandomAccessFile(file, "r");
-        String text = "";
-        for (int i = 0; i < file.length(); i++){
-            text += (char)raf.readByte();
-        }
-        raf.close();
-        return text.replaceAll(" ", "");
+        br = new BufferedReader(new FileReader(file));
+        String auslesen = "";
+        auslesen = br.readLine();
+        br.close();
+        return auslesen;
     }
 
     public void inDateiSchreiben(String text) throws IOException {
-        text = text.replaceAll(" ", "");
-        raf = new RandomAccessFile(file, "rw");
-        raf.setLength(0);
-        raf.writeChars(text);
-        raf.close();
+        bw = new BufferedWriter(new FileWriter(file));
+        bw.write(text);
+        bw.close();
     }
 
     // wandelt den Buchstaben in seine zugehörige Stelle im Alphabet an (Klartextalphabet)
@@ -67,6 +58,7 @@ public class Caesar {
             char newBuchstabe = getBuchstabe(nrBuchstabe + verschiebung);
             chiffre += newBuchstabe;
         }
+        System.out.println(chiffre);
         this.inDateiSchreiben(chiffre);
     }
 
@@ -79,6 +71,6 @@ public class Caesar {
             char newBuchstabe = getBuchstabe(nrBuchstabe - verschiebung);
             klartext += newBuchstabe;
         }
-        this.inDateiSchreiben(klartext.replaceAll(" ", ""));
+        this.inDateiSchreiben(klartext);
     }
 }
