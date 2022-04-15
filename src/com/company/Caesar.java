@@ -11,7 +11,7 @@ public class Caesar {
     BufferedReader br = null;
     BufferedWriter bw = null;
 
-    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\caesarklartext.txt");  //caesarklartext.txt
+    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\verschluesselung.txt");  //caesarklartext.txt
 
     public String ausDateiLesen() throws IOException {
         br = new BufferedReader(new FileReader(file));
@@ -58,7 +58,6 @@ public class Caesar {
             char newBuchstabe = getBuchstabe(nrBuchstabe + verschiebung);
             chiffre += newBuchstabe;
         }
-        System.out.println(chiffre);
         this.inDateiSchreiben(chiffre);
     }
 

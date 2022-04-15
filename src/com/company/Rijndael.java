@@ -10,7 +10,7 @@ public class Rijndael {
     private static byte[] schluesselWert;
     BufferedReader br = null;
     BufferedWriter bw = null;
-    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\rijndael.txt");
+    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\verschluesselung.txt");
 
     public Rijndael(String schluessel) {
         schluesselWert = schluessel.getBytes();
