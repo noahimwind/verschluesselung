@@ -42,7 +42,6 @@ public class Rijndael {
 
     public void entschluesseln() throws Exception{
         String verschlüsselteDaten = this.ausDateiLesen();
-        System.out.println(verschlüsselteDaten);
         Key schluessel = schluesselGenerieren();
         Cipher cipher = Cipher.getInstance(algorithmus);
         cipher.init(Cipher.DECRYPT_MODE, schluessel);

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Rijndael r = new Rijndael("mZq4t7w!z%C*F)J@");
+        Rijndael r = new Rijndael("mZq4t7w!z%C*F)J@");  // 16 Byte = 128 Bit
         Caesar c = new Caesar();
         Scanner sc = new Scanner(System.in);
 
@@ -17,13 +17,13 @@ public class Main {
             String eingabe = sc.next();
             if (eingabe.equals("r")){
                 r.verschluesseln();
-                System.out.println("Text wurde mit Rijndael verschlüsselt");
+                System.out.println("Text wurde mit Rijndael verschluesselt");
             }
             else if (eingabe.equals("c")){
                 System.out.println("Geben Sie einen Schluessel ein (1-25):");
                 int verschiebung = Integer.parseInt(sc.next());
                 c.verschluesseln(verschiebung);
-                System.out.println("Text wurde mit Caesar verschlüsselt");
+                System.out.println("Text wurde mit Caesar verschluesselt");
             }
         }
         else if (modus.equals("e")){
@@ -32,13 +32,13 @@ public class Main {
             String eingabe = sc.next();
             if (eingabe.equals("r")){
                 r.entschluesseln();
-                System.out.println("Text wurde mit Rijndael entschlüsselt");
+                System.out.println("Text wurde mit Rijndael entschluesselt");
             }
             else if (eingabe.equals("c")){
                 System.out.println("Geben Sie einen Schluessel ein (1-25):");
                 int verschiebung = Integer.parseInt(sc.next());
                 c.entschluesseln(verschiebung);
-                System.out.println("Text wurde mit Caesar entschlüsselt");
+                System.out.println("Text wurde mit Caesar entschluesselt");
             }
         }
 

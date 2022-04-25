@@ -11,7 +11,7 @@ public class Caesar {
     BufferedReader br = null;
     BufferedWriter bw = null;
 
-    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\verschluesselung.txt");  //caesarklartext.txt
+    File file = new File("C:\\Users\\noahd\\Documents\\SWD\\verschluesselung.txt");
 
     public String ausDateiLesen() throws IOException {
         br = new BufferedReader(new FileReader(file));
@@ -27,7 +27,7 @@ public class Caesar {
         bw.close();
     }
 
-    // wandelt den Buchstaben in seine zugehörige Stelle im Alphabet an (Klartextalphabet)
+    // wandelt den Buchstaben in seine zugehörige Nummer im Alphabet an (Klartextalphabet)
     public int getNumberofChar(char buchstabe){
         for(int i = 0; i < 26; i = i + 1) {
             if(alphabet[i] == buchstabe) {
@@ -50,15 +50,19 @@ public class Caesar {
 
     // verschlüsselt den klartext
     public void verschluesseln(int verschiebung) throws IOException {
-        String klartext = this.ausDateiLesen();
-        String chiffre = "";
+
+        String klartext = this.ausDateiLesen();     //  zu verschlüsselnder Text aus der Datei
+        String chiffre = "";    //  hier drin wird der verschlüsselte Text gespeichert
+
+        //  for Schleife geht durch den ganzen Klartext
         for (int i = 0; i < klartext.length(); i++){
             char buchstabe = klartext.charAt(i);    // der aktuelle Buchstabe aus dem Klartext
-            int nrBuchstabe = getNumberofChar(buchstabe);
-            char newBuchstabe = getBuchstabe(nrBuchstabe + verschiebung);
-            chiffre += newBuchstabe;
+            int nrBuchstabe = getNumberofChar(buchstabe);   //   Nummer des aktuellen Buchstabens
+            char newBuchstabe = getBuchstabe(nrBuchstabe + verschiebung);   //  verschlüsselter Buchstabe
+            chiffre += newBuchstabe;    //  reiht die Buchstaben der Chiffre aneinander
         }
-        this.inDateiSchreiben(chiffre);
+
+        this.inDateiSchreiben(chiffre); //  überschreibt den Klartext mit der Chiffre
     }
 
     public void entschluesseln(int verschiebung) throws IOException {
